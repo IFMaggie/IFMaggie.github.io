@@ -1,0 +1,57 @@
+/* S 公用css */
+*, ::before, ::after {
+    padding: 0;
+    margin: 0;
+    /* 我们要去除在所有的浏览器当中点击过后有一个高亮效果 */
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+    /* 我们需要设置无哦有的元素宽度以边框开始 */
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Microsoft YaHei",sans-serif;
+    font-size: 14px;
+    color: #333;
+    background: #f5f5f5;
+}
+
+ol,ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: #333;
+}
+a:hover{
+    color: #333;
+}
+
+input[type="search"],input[type="tel"],textarea{
+    border: 0;
+    resize: none;
+    outline: none;
+    -webkit-appearance: none;
+}
+.f_left{
+    float: left;
+}
+.f_right{
+    float: right;
+}
+.clearfix::after,
+.clearfix::before{
+    content:".";
+    height:0;
+    line-height:0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+/* D 基础样式*/
+
+/* 通用图标 */
+[class^="icon_"]{
+    background: url("../images/sprites.png") no-repeat;
+    background-size: 200px 200px;
+}
