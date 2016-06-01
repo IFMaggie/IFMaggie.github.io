@@ -7,7 +7,6 @@ itmaggie.transitionEnd = function (objDom,callback) {
         return false;
     }
 
-
     objDom.addEventListener('transitionEnd',function () {
         callback && callback();
     });

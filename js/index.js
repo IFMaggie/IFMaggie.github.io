@@ -48,15 +48,27 @@ function banner() {
     var index = 1;
     var timer;
 
+    /* 定位 */
     var setTranslateX = function (x) {
         imagesBox.style.transform = 'translateX(' + x + 'px)';
         imagesBox.style.webkitTransform = 'translateX(' + x + 'px)';
     }
 
+    /* 加过渡 */
+    var addTransition = function () {
+        imagesBox.style.transition = 'all .2s ease';
+        imagesBox.style.webkitTransition = 'all .2s ease';
+    }
+
+    /* 清除过渡 */
+    var removeTransition = function () {
+        imagesBox.style.transition = 'none';
+        imagesBox.style.webkitTransition = 'none';
+    }
+
     timer = setInterval(function () {
         index++;
-        imagesBox.style.transition = 'all 2s ease';
-        imagesBox.style.webkitTransition = 'all 2s ease';
+        addTransition();
         setTranslateX(-index * width);
 
     }, 2000);
@@ -65,16 +77,13 @@ function banner() {
     itmaggie.transitionEnd(imagesBox, function () {
         if (index >= 9) {
             index = 1;
-            imagesBox.style.transition = 'none';
-            imagesBox.style.webkitTransition = 'none';
+            removeTransition();
             setTranslateX(-index * width);
         } else if (index <= 0) {
             index = 8;
-            imagesBox.style.transition = 'none';
-            imagesBox.style.webkitTransition = 'none';
+            removeTransition();
             setTranslateX(-index * width);
         }
-
     });
 
     var setCurrPoint = function () {
