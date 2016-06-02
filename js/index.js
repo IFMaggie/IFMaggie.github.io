@@ -134,18 +134,20 @@ function banner() {
             addTransition();
             setTranslateX(-index * width);
         }
+
+
+        timer = setInterval(function () {
+            index++;
+            addTransition();
+            setTranslateX(-index * width);
+
+        }, 2000);
+        startX = 0;
+        moveX = 0;
+        distanceX = 0;
+        isMove = false;
     });
 
-    timer = setInterval(function () {
-        index++;
-        addTransition();
-        setTranslateX(-index * width);
-
-    }, 2000);
-    startX = 0;
-    moveX = 0;
-    distanceX = 0;
-    isMove = false;
 
 }
 
