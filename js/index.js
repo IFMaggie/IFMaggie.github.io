@@ -3,6 +3,7 @@ window.onload = function () {
     /* 执行方法块 */
     search();
     banner();
+    secondKill();
 }
 /* 搜索 */
 function search() {
@@ -135,7 +136,7 @@ function banner() {
             setTranslateX(-index * width);
         }
 
-
+        clearInterval(timer);
         timer = setInterval(function () {
             index++;
             addTransition();
@@ -147,9 +148,37 @@ function banner() {
         distanceX = 0;
         isMove = false;
     });
+}
 
+/* 倒计时 */
+function secondKill() {
+    var time = document.getElementsByClassName("sk_time")[0];
+    var blackBox = time.getElementsByTagName("span");
+
+    var timer = 5 * 60 * 60;
+    var interval = setInterval(function () {
+        if(timer<=0){
+            clearInterval(interval);
+        }
+        timer--;
+        var h = Math.floor(timer / (60 * 60));
+        var m = Math.floor(timer % (60 * 60)/ 60) ;
+        var s = timer % 60;
+
+        blackBox[0].innerHTML = Math.floor(h / 10);
+        blackBox[1].innerHTML = h % 10;
+        blackBox[3].innerHTML = Math.floor(m / 10);
+        blackBox[4].innerHTML = m % 10;
+        blackBox[6].innerHTML = Math.floor(s / 10);
+        blackBox[7].innerHTML = s % 10;
+
+
+    }, 1000);
 
 }
+
+
+
 
 
 
