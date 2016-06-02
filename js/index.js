@@ -84,6 +84,8 @@ function banner() {
             removeTransition();
             setTranslateX(-index * width);
         }
+        setCurrPoint();
+
     });
 
     var setCurrPoint = function () {
@@ -94,15 +96,56 @@ function banner() {
             pointIndex = 8;
         }
         pointIndex = pointIndex - 1;
-        for (var i = 0;i<points.length;i++){
-            points.className="";
+        for (var i = 0; i < points.length; i++) {
+            points[i].className = "";
         }
 
-
-
-
+        points[pointIndex].className = 'now';
     }
 
+    /* 跟随手指做滑动 */
+    var startX = 0;
+    /* 起始坐标值 */
+    var moveX = 0;
+    var distanceX = 0;
+    var isMove = false;
+    imagesBox.addEventListener("touchstart", function (e) {
+        startX = e.touches[0].clientX;
+    });
+
+    imagesBox.addEventListener("touchmove", function (e) {
+        clearInterval(timer);
+        moveX = e.touches[0].clientX;
+        distanceX = moveX - startX;
+        removeTransition();
+        setTranslateX(-index * width + distanceX);
+        isMove = true;
+    });
+    window.addEventListener("touchend", function () {
+        if (Math.abs(distanceX) > 1 / 3 * width && isMove) {
+            if (distanceX > 0) {
+                index--;
+            } else {
+                index++;
+            }
+            addTransition();
+            setTranslateX(-index * width);
+        } else {
+            addTransition();
+            setTranslateX(-index * width);
+        }
+    });
+
+    timer = setInterval(function () {
+        index++;
+        addTransition();
+        setTranslateX(-index * width);
+
+    }, 2000);
+    startX = 0;
+    moveX = 0;
+    distanceX = 0;
+    isMove = false;
 
 }
 
