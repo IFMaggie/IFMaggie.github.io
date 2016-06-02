@@ -160,11 +160,12 @@ function secondKill() {
         if(timer<=0){
             clearInterval(interval);
         }
+
         timer--;
         var h = Math.floor(timer / (60 * 60));
         var m = Math.floor(timer % (60 * 60)/ 60) ;
         var s = timer % 60;
-
+        /* 时间盒子 */
         blackBox[0].innerHTML = Math.floor(h / 10);
         blackBox[1].innerHTML = h % 10;
         blackBox[3].innerHTML = Math.floor(m / 10);
