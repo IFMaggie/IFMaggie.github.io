@@ -1,5 +1,6 @@
 window.onload = function () {
     leftSwipe();
+    rightSwipe();
 }
 
 /* 左侧滑动 */
@@ -30,8 +31,8 @@ function leftSwipe() {
     /* 缓冲区间 */
     var distanceH = 150;
 
-    var maxSwipe = maxPosition + 150;
-    var minSwipe = minPosition - 150;
+    var maxSwipe = maxPosition + distanceH;
+    var minSwipe = minPosition - distanceH;
 
     var startY = 0;
     var moveY = 0;
@@ -63,8 +64,13 @@ function leftSwipe() {
     childBox.addEventListener("touchmove", function (e) {
         moveY = e.touches[0].clientY;
         distanceY = moveY - startY;
-        removeTransition();
-        setTranslateY(currY + distanceY);
+
+
+        if ((currY + distanceY) < maxSwipe && (currY + distanceY) > minSwipe) {
+            removeTransition();
+            setTranslateY(currY + distanceY);
+        }
+
     });
     window.addEventListener("touchend", function () {
         currY = currY + distanceY;
@@ -83,6 +89,95 @@ function leftSwipe() {
         distanceY = 0;
 
     });
+    var lisDom = childBox.children;
+    itmaggie.tap(childBox, function (e) {
+        var liDom = e.target.parentNode;
+        for (var i = 0; i < lisDom.length; i++) {
+            lisDom[i].className = "";
+            lisDom[i].index = i;
+        }
+        liDom.className = "now";
+        var position = -liDom.index * 50;
+        if (position < maxPosition && position > minPosition) {
+            currY = position;
+            addTransition();
+            setTranslateY(currY);
+        } else {
+            currY = minPosition;
+            addTransition();
+            setTranslateY(currY);
+        }
+    });
+}
 
+
+function rightSwipe() {
+    var parentBox = document.getElementsByClassName("jd_category_right")[0];
+    var childBox = parentBox.getElementsByTagName("div")[0];
+
+    var parentH = parentBox.offsetHeight;
+    var childH = childBox.offsetHeight;
+
+
+    /* 最大定位区间 */
+    var maxPosition = 0;
+    /* 最小定位区间 */
+    var minPosition = -(childH - parentH);
+
+    /* 加过渡 */
+    var addTransition = function () {
+        childBox.style.transition = 'all .2s ease';
+        childBox.style.webkitTransition = 'all .2s ease';
+    }
+
+    /* 清除过渡 */
+    var removeTransition = function () {
+        childBox.style.transition = 'none';
+        childBox.style.webkitTransition = 'none';
+    }
+
+    /* 定位 */
+    var setTranslateY = function (y) {
+        childBox.style.transform = 'translateY(' + y + 'px)';
+        childBox.style.webkitTransform = 'translateY(' + y + 'px)';
+    }
+
+
+    var startY = 0;
+    var moveY = 0;
+    var distanceY = 0;
+    var currY = 0;
+
+    childBox.addEventListener("touchstart", function (e) {
+        startY = e.touches[0].clientY;
+    });
+    childBox.addEventListener("touchmove", function (e) {
+        moveY = e.touches[0].clientY;
+        distanceY = moveY - startY;
+        
+        if ((currY + distanceY) < maxPosition && (currY + distanceY) > minPosition) {
+            removeTransition();
+            setTranslateY(currY + distanceY);
+        }
+
+    });
+
+    childBox.addEventListener("touchend", function () {
+        currY = currY + distanceY;
+        if (currY > maxPosition) {
+            currY = maxPosition;
+            addTransition();
+            setTranslateY(currY);
+        } else if (currY < minPosition) {
+            currY = minPosition;
+            addTransition();
+            setTranslateY(currY);
+        }
+        /* 重置参数 */
+        startY = 0;
+        moveY = 0;
+        distanceY = 0;
+
+    });
 
 }

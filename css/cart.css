@@ -1,0 +1,40 @@
+.jd_topBar {
+    position: relative;
+}
+
+/* 安全中心 */
+.jd_safeTip {
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    border-bottom: 1px solid #cccccc;
+    background: #fff;
+}
+
+.jd_safeTip p {
+    display: inline-block;
+    position: relative;
+    padding-left: 23px;
+    font-size: 12px;
+}
+
+.jd_safeTip p::before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 7px;
+    left: 0;
+    background: url("../images/safe_icon.png") no-repeat;
+    background-size: 18px 18px;
+}
+
+/* 订单 */
+.jd_order {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+    margin-top: 10px;
+}
+
+
